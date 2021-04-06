@@ -1,0 +1,19 @@
+.about {
+    margin-left: min(70px, 5.5vw);
+    margin-right: min(70px, 5.5vw);
+}
+
+
+.about__paragraphs {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: flex-start;
+    padding: 0 0;
+
+}
+
+.about__paragraph {
+
+    margin-right: 160px;
+}

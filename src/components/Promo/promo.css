@@ -1,0 +1,63 @@
+
+.promo {
+    width: 100vw;
+    background-color: #073042;
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+}
+
+.promo__content {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 9vh 5.5vw 9.80vh;
+
+}
+
+
+.promo__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.promo__title {
+    /*удалить текст*/
+    font-family: Inter, serif;
+    white-space: pre-line;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    margin: 0 0 3.3vh;
+    width: 50vw;
+
+}
+
+.promo__sub-title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    opacity: 0.5;
+    width: 24.2vw;
+}
+
+.promo__planet {
+    width: 27.23%;
+    object-fit: fill;
+
+}
+
+
+
+.promo__button {
+    height: 36px;
+    width: 129px;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    margin-left: 5.5vw;
+    outline: none;
+    margin-bottom: 8.17vh;
+}
