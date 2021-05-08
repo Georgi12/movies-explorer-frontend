@@ -1,0 +1,84 @@
+
+.promo {
+    width: 100%;
+    background-color: #073042;
+    display: flex;
+    color: #fff;
+    flex-direction: column;
+}
+
+
+.promo__link {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.promo__link_registration {
+    background: #2BE080;
+    border-radius: 3px;
+    height: 32px;
+    width: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+
+.promo__content {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 81px 5.5vw 84px;
+
+}
+
+.promo__text {
+    display: flex;
+    flex-direction: column;
+}
+
+.promo__title {
+    /*удалить текст*/
+    font-family: Inter, serif;
+    white-space: pre-line;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 50px;
+    line-height: 58px;
+    margin: 0 0 3.3vh;
+    width: 50vw;
+
+}
+
+.promo__sub-title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 16px;
+    opacity: 0.5;
+    width: 24.2vw;
+}
+
+.promo__planet {
+    width: 27.23%;
+    object-fit: fill;
+
+}
+
+.promo__button {
+    height: 36px;
+    width: 129px;
+    background-color: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    margin-left: 5.5vw;
+    outline: none;
+    margin-bottom: 8.17vh;
+}
