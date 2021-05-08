@@ -1,13 +1,15 @@
+import "./FilterCheckbox.css"
 
 function FilterCheckbox({value, setValue}) {
     return (
-        <>
+        <div className="checkbox">
             <input
-                className={`checkbox${value && "checkbox_active"}`}
+                className="checkbox__switcher"
                 type="checkbox" checked={value}
                 onChange={() => setValue(!value)}
             />
-        </>
+            <label>Короткометражки</label>
+        </div>
     )
 }
 

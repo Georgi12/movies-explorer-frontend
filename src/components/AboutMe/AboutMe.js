@@ -1,37 +1,44 @@
-import Section from "../Section/Section";
-import planet from "../../images/planet.svg";
+import './AboutMe.css';
+import Title from "../Title/Title";
+import authorPhoto from "../../images/author-photo.jpg";
+import Footer from "../Footer/Footer";
 
 function AboutMe() {
     return(
-        <section>
-            <Section title={"Студент"}/>
-            <div>
-                <h3>Георгий</h3>
-                <p>Фуллстэк-разработчик, 28 лет</p>
-                <text>
-                    Я провижаю в Санкт-Петербурге, окончил ВУЗ СПБГЭТУ, или как раньше его называли, ЛЭТИ по профессии
-                    инженер-электротехник. Но сейчас я не работаю по профессии, потому что я нашел свое признание - программирование.
-                    На данный момент я занию должность middle python developer в крупной компании. После того как прошел курс
-                    я загорелся собсвенным стратапом. Так как теперь помимо серверной логики я могу и создавать красивые
-                    интерфейсы на стороне пользователя.
+        <>
+            <section className="about-me">
+                <Title title={"Студент"}/>
+                <div className="about-me__information">
+                    <div className="about-me__information-text">
+                        <h3 className="about-me__name">Георгий</h3>
+                        <p className="about-me__annotation">Фуллстэк-разработчик, 28 лет</p>
+                        <p className="about-me__description">
+                            Я провижаю в Санкт-Петербурге, окончил ВУЗ СПБГЭТУ, или как раньше его называли, ЛЭТИ по профессии
+                            инженер-электротехник. Но сейчас я не работаю по профессии, потому что я нашел свое признание - программирование.
+                            На данный момент я занию должность middle python developer в крупной компании. После того как прошел курс
+                            я загорелся собсвенным стратапом. Так как теперь помимо серверной логики я могу и создавать красивые
+                            интерфейсы на стороне пользователя.
 
-                    А еще у меня есть жена и кошка мейнкун по кличке Реша. Люблю смотреть Netflix, занимаюсь спортом.
-                </text>
+                            А еще у меня есть жена и кошка мейнкун по кличке Реша. Люблю смотреть Netflix, занимаюсь спортом.
+                        </p>
 
-                <nav>
-                    <a>FaceBook</a>
-                    <a>GitHub</a>
+                        <nav className="about-me__social">
+                            <a className="about-me__social-linc" href="https://www.facebook.com/gedrargerum" target="_blank">FaceBook</a>
+                            <a className="about-me__social-linc" href="https://github.com/Georgi12" target="_blank">GitHub</a>
+                        </nav>
+                    </div>
+                    <img className="about-me__photo" src={authorPhoto} alt="Фотография разработчика проекта"/>
+                </div>
+                <h4 className="about-me__portfolio-title">Портфолио</h4>
+
+                <nav className="about-me__portfolio">
+                    <a className="about-me__portfolio-linc">Статичный сайт</a>
+                    <a className="about-me__portfolio-linc">Адаптивный сайт</a>
+                    <a className="about-me__portfolio-linc">Одностраничное приложение</a>
                 </nav>
-            </div>
-            <img src={planet} alt="Фотография разработчика проекта"/>
-            <h3>Портфолио</h3>
-
-            <nav>
-                <button>Статичный сайт</button>
-                <button>Адаптивный сайт</button>
-                <button>Одностраничное приложение</button>
-            </nav>
-        </section>
+            </section>
+        <Footer/>
+    </>
     )
 }
 

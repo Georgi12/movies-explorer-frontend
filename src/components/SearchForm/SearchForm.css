@@ -1,0 +1,36 @@
+
+.movie-form {
+    width: 100%;
+    border-bottom: 1px solid #E8E8E8;
+    margin-bottom: 80px;
+}
+
+.movie-form__content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 80px 0 28px;
+}
+
+.movie-form__field {
+    width: 100%;
+    background: #F9F9F9;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    margin-right: 10px;
+    min-height: 50px;
+    padding-left: 20px;
+}
+
+
+.movie-form__submit {
+    height: 44px;
+    width: 44px;
+    background: #3456F3 url("../../images/film-submit.svg");
+    border-radius: 5px;
+    outline: none;
+    border: 0;
+}

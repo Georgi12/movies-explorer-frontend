@@ -1,0 +1,22 @@
+
+.navigate-button {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: #000000;
+    text-decoration: none;
+    margin-right: 20px;
+}
+
+.navigate-button_account {
+    background: #F9F9F9;
+    border-radius: 20px;
+    width: 100px;
+    min-height: 32px;
+    margin: 0 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

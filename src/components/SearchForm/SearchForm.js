@@ -1,16 +1,19 @@
 import React  from 'react';
-import FilterCheckbox from "../FilterCheckbox";
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
+import "./SearchForm.css"
 
-function SearchForm (onSubmit) {
-
+function SearchForm ({searchMovie, getApiData, setShowMovies, setSearching}) {
     const [isShortFilmOn, setIsShortFilmOn] = React.useState(false)
 
+    const onSubmit = (e) => {
+        searchMovie(e, getApiData, setShowMovies, isShortFilmOn, setSearching)
+    }
 
     return (
-        <form onSubmit={onSubmit}>
-            <div>
-                <input type="text"/>
-                <button>></button>
+        <form className="movie-form" onSubmit={onSubmit}>
+            <div className="movie-form__content">
+                <input className="movie-form__field" type="text" placeholder="Фильм"/>
+                <button className="movie-form__submit"/>
             </div>
             <FilterCheckbox value={isShortFilmOn} setValue={setIsShortFilmOn}/>
         </form>

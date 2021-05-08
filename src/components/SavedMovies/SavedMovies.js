@@ -1,23 +1,25 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import "../Movies/Movies.css"
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
-import "./Movies.css"
 import NavigateButtons from "../NavigateButtons/NavigateButtons";
 import React from "react";
+import {myMoviesConstanta} from "../../temporaryConstats";
 import {MyMovieContext} from "../../context/MyMovieContext";
-import {moviesConstanta} from "../../temporaryConstats";
 import Footer from "../Footer/Footer";
 
-function Movies ({searchMovie, addNewListMovie}) {
+function SavedMovies({searchMovie, addNewListMovie}) {
+
     const [showMovies, setShowMovies] = React.useState([])
     const [searching, setSearching] = React.useState(false)
     const [movies, setMovies] = React.useState([])
 
     const getMoviesApi = () => {
+
         // действия после запроса в базу
-        const mm = moviesConstanta
-        setMovies(mm)
-        setShowMovies(mm.slice(0, 16))
+        const svm = myMoviesConstanta
+        setMovies(svm)
+        setShowMovies(svm.slice(0, 16))
     }
 
     const myMovies = React.useContext(MyMovieContext)
@@ -25,6 +27,7 @@ function Movies ({searchMovie, addNewListMovie}) {
     const onAddMovies = () => {
         addNewListMovie(showMovies, setShowMovies, movies)
     }
+
 
     return(
         <>
@@ -47,7 +50,8 @@ function Movies ({searchMovie, addNewListMovie}) {
             </div>
             <Footer/>
         </>
+
     )
 }
 
-export default Movies
+export default SavedMovies

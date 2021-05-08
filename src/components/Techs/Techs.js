@@ -1,21 +1,38 @@
-import Section from "../Section/Section";
+import Title from "../Title/Title";
+import './Techs.css';
 
 function Techs () {
     return(
         <section className="techs">
-            <Section title={"Технологии"}/>
+            <div className="techs__border">
+                <Title title={"Технологии"} subClassName={"section__title_padding-short"}/>
 
-            <h3 className="techs__title">7 технологий</h3>
-            <p className="techs__sub-title" >На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
-            <ul className="techs__list">
-                <li className="techs__list-item">HTML</li>
-                <li className="techs__list-item">CSS</li>
-                <li className="techs__list-item">JS</li>
-                <li className="techs__list-item">React</li>
-                <li className="techs__list-item">Git</li>
-                <li className="techs__list-item">Express.js</li>
-                <li className="techs__list-item">mongoDB</li>
-            </ul>
+                <h3 className="techs__title">7 технологий</h3>
+                <p className="techs__sub-title" >На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.</p>
+                <ul className="techs__list">
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">HTML</p>
+                    </li>
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">CSS</p>
+                    </li>
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">JS</p>
+                    </li>
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">React</p>
+                    </li>
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">Git</p>
+                    </li>
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">Express.js</p>
+                    </li>
+                    <li className="techs__list-item">
+                        <p className="techs__list-item-text">mongoDB</p>
+                    </li>
+                </ul>
+            </div>
         </section>
     )
 }
