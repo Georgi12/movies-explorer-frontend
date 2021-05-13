@@ -1,5 +1,3 @@
-import './App.css';
-
 import React  from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Main from "../Main/Main";
@@ -12,7 +10,6 @@ import NotFoundError from "../NotFoundError/NotFoundError";
 import {myMoviesConstanta} from "../../temporaryConstats";
 import {MyMovieContext} from "../../context/MyMovieContext";
 import {UserContext} from "../../context/UserContext";
-
 function App() {
 
     React.useEffect(() =>
@@ -23,7 +20,6 @@ function App() {
             setUserParams({name: 'Георгий', email: 'asd'}),
         []
     )
-
     // Данные фильмов
     const [myMovies, setMyMovies] = React.useState([])
 

@@ -1,16 +1,17 @@
 
 
 .movie-card {
-    background: #FDFDFD;
+    background: #fdfdfd;
     box-shadow: 0 16px 24px rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     overflow: hidden;
-    /*min-height: 218px;*/
+    box-sizing: border-box;
 }
 
 .movie-card__image {
     width: 100%;
     object-fit: cover;
+    display: block;
 }
 
 .movie-card__information {
@@ -18,7 +19,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    margin: 0 12px 10px;
+    margin: 14px 12px 10px;
     color: #000;
 }
 

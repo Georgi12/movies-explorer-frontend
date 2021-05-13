@@ -1,6 +1,5 @@
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import Form from "../Form/Form";
-import "./ComingScreen.css"
 import {Link} from "react-router-dom";
 
 function ComingScreen({buttonTitle, linkTitle, linkDescription, title, formName, children, onSubmit, isValid, linkTo}) {

@@ -1,4 +1,3 @@
-import "./MoviesCard.css"
 import React from "react";
 
 function MoviesCard({movie, myMovies}) {

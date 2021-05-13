@@ -1,6 +1,5 @@
 import React  from 'react';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
-import "./SearchForm.css"
 
 function SearchForm ({searchMovie, getApiData, setShowMovies, setSearching}) {
     const [isShortFilmOn, setIsShortFilmOn] = React.useState(false)

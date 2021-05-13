@@ -5,3 +5,17 @@
     flex-direction: column;
     min-height: calc(100vh - 172px);
 }
+
+@media screen and (max-width: 1000px) {
+    .movies{
+        margin: 0 30px;
+    }
+
+}
+
+@media screen and (max-width: 560px) {
+    .movies{
+        margin: 0 10px;
+    }
+
+}

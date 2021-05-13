@@ -62,7 +62,11 @@
     background-color: transparent;
     border: 0;
     outline: none;
+    transition: opacity 0.3s;
+}
 
+.profile__edit-btn:hover {
+    opacity: 0.3;
 }
 
 .profile__exit {
@@ -70,5 +74,16 @@
     text-decoration: none;
     margin-bottom: 70px;
     font-weight: 500;
+    transition: opacity 0.3s;
 
+}
+
+.profile__exit:hover {
+    opacity: 0.3;
+}
+
+@media screen and (max-width: 560px) {
+    .profile__information {
+        width: 100%;
+    }
 }

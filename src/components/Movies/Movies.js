@@ -1,7 +1,6 @@
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
-import "./Movies.css"
 import NavigateButtons from "../NavigateButtons/NavigateButtons";
 import React from "react";
 import {MyMovieContext} from "../../context/MyMovieContext";

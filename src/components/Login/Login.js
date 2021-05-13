@@ -1,5 +1,4 @@
 import ComingScreen from "../СomingScreen/ComingScreen";
-import "./Login.css"
 import FormFields from "../FormFields/FormFields";
 import React from "react";
 import {useFormWithValidation} from "../../utils/formConfirm";
