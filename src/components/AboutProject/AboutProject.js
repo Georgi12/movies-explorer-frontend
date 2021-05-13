@@ -1,5 +1,4 @@
 import Title from "../Title/Title";
-import './AboutProject.css';
 
 function AboutProject() {
     return (

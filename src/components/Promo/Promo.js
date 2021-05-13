@@ -1,6 +1,5 @@
 import React from 'react';
 import planet from "../../images/planet.svg";
-import './promo.css';
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import { Link } from "react-router-dom";
 
@@ -11,7 +10,7 @@ function Promo() {
 
     return(
         <header className='promo'>
-            <NavigationMenu>
+            <NavigationMenu firstMenu={true}>
                 <>
                     <Link to="signup" className="promo__link">Регистрация</Link>
                     <Link to="signin" className="promo__link promo__link_registration">Войти</Link>

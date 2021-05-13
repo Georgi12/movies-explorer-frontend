@@ -1,5 +1,4 @@
 import Form from "../Form/Form";
-import './Popup.css'
 
 function Popup ({formName, buttonTitle, onSubmit, isValid, isOpen, togglePopup, children}) {
 

@@ -1,5 +1,4 @@
 import React from "react";
-import './Profile.css'
 import {Link} from "react-router-dom";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import NavigateButtons from "../NavigateButtons/NavigateButtons";
@@ -16,7 +15,6 @@ function Profile({updateUser}) {
     const currentUser = React.useContext(UserContext)
 
     const updateUserModification = (e) => {
-        console.log(values)
         e.preventDefault()
         updateUser(values.name, values.email )
         togglePopup()

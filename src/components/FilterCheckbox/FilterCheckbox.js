@@ -1,5 +1,3 @@
-import "./FilterCheckbox.css"
-
 function FilterCheckbox({value, setValue}) {
     return (
         <div className="checkbox">

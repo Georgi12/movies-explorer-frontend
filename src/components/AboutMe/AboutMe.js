@@ -1,4 +1,3 @@
-import './AboutMe.css';
 import Title from "../Title/Title";
 import authorPhoto from "../../images/author-photo.jpg";
 import Footer from "../Footer/Footer";
@@ -32,9 +31,9 @@ function AboutMe() {
                 <h4 className="about-me__portfolio-title">Портфолио</h4>
 
                 <nav className="about-me__portfolio">
-                    <a className="about-me__portfolio-linc">Статичный сайт</a>
-                    <a className="about-me__portfolio-linc">Адаптивный сайт</a>
-                    <a className="about-me__portfolio-linc">Одностраничное приложение</a>
+                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/how-to-learn" target='_blank'>Статичный сайт</a>
+                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/russian-travel" target='_blank'>Адаптивный сайт</a>
+                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/react-mesto-api-full" target='_blank'>Одностраничное приложение</a>
                 </nav>
             </section>
         <Footer/>

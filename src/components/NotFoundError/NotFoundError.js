@@ -1,5 +1,4 @@
 import {useHistory} from "react-router-dom";
-import "./NotFoundError.css"
 
 function NotFoundError() {
     const history = useHistory()

@@ -1,5 +1,3 @@
-import "./FormFields.css"
-
 function FormFields({username, email, password, value, onSetValue, errors}) {
 
     return(
