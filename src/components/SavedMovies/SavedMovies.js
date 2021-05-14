@@ -4,30 +4,17 @@ import "../Movies/Movies.css"
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import NavigateButtons from "../NavigateButtons/NavigateButtons";
 import React from "react";
-import {myMoviesConstanta} from "../../temporaryConstats";
-import {MyMovieContext} from "../../context/MyMovieContext";
 import Footer from "../Footer/Footer";
+import {useHistory} from "react-router-dom";
 
-function SavedMovies({searchMovie, addNewListMovie}) {
+function SavedMovies({findMovies, ShortFilmOn, isShortFilm, searching, myMovies, onLike}) {
 
-    const [showMovies, setShowMovies] = React.useState([])
-    const [searching, setSearching] = React.useState(false)
-    const [movies, setMovies] = React.useState([])
+    const history = useHistory()
 
-    const getMoviesApi = () => {
-
-        // действия после запроса в базу
-        const svm = myMoviesConstanta
-        setMovies(svm)
-        setShowMovies(svm.slice(0, 16))
+    const updateSubmit = (e) => {
+        history.push('/movies')
+        findMovies(e)
     }
-
-    const myMovies = React.useContext(MyMovieContext)
-
-    const onAddMovies = () => {
-        addNewListMovie(showMovies, setShowMovies, movies)
-    }
-
 
     return(
         <>
@@ -36,16 +23,16 @@ function SavedMovies({searchMovie, addNewListMovie}) {
             </NavigationMenu>
             <div className="movies">
                 <SearchForm
-                    searchMovie={searchMovie}
-                    setSearching={setSearching}
-                    getApiData={getMoviesApi}
-                    setShowMovies={setShowMovies}
+                    onSubmit={updateSubmit}
+                    ShortFilmOn={ShortFilmOn}
+                    isShortFilm={isShortFilm}
                 />
                 <MoviesCardList
-                    movies={showMovies}
+                    movies={myMovies}
                     myMovies={myMovies}
                     searching={searching}
-                    onAddMovies={onAddMovies}
+                    deleteModeOn={true}
+                    onLike={onLike}
                 />
             </div>
             <Footer/>
