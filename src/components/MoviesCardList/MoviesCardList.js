@@ -3,16 +3,20 @@ import React from "react";
 import Preloader from "../Preloader/Preloader";
 
 
-function MoviesCardList({movies, myMovies, searching, onAddMovies}) {
-
+function MoviesCardList({movies, myMovies, searching, deleteModeOn, onLike}) {
     return (
         <>
             {searching ? <Preloader/> :
                 <>
                     <div className="cardList">
-                        {movies.map((movie) => <MoviesCard key={movie.id} movie={movie} myMovies={myMovies}/>)}
+                        {movies.map((movie) => <MoviesCard
+                            key={movie.id}
+                            movie={movie}
+                            myMovies={myMovies}
+                            deleteModeOn={deleteModeOn}
+                            onLike={onLike}
+                        />)}
                     </div>
-                    <button className="cardList__button" onClick={onAddMovies}>Еще</button>
                 </>
             }
 

@@ -24,7 +24,6 @@
 }
 
 .movie-card__title {
-    font-family: Inter;
     font-style: normal;
     font-weight: 500;
     font-size: 13px;
@@ -40,15 +39,27 @@
     height: 16px;
     border: 2px solid #fff;
     outline: none;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.movie-card__like:hover {
+    opacity: 0.4;
 }
 
 .movie-card__like_active {
     background: #2BE080;
 }
 
+.movie-card__delete {
+    background-image: url("/src/images/closeButton.svg");
+    background-size: cover;
+    background-color: inherit;
+    border-radius: 0;
+    box-shadow: none;
+}
+
 .movie-card__duration {
     margin: 0 0 14px 12px;
-    font-family: Inter;
     font-style: normal;
     font-weight: normal;
     font-size: 11px;

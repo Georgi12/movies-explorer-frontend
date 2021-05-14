@@ -6,6 +6,26 @@
     min-height: calc(100vh - 172px);
 }
 
+.movies__button {
+    width: 28.15%;
+    min-height: 36px;
+    align-self: center;
+    background: transparent;
+    outline: none;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    border: 1px solid #E8E8E8;
+    border-radius: 5%;
+    margin: 80px 0;
+    transition: opacity 0.3s;
+}
+
+.movies__button:hover {
+    opacity: 0.4;
+}
+
 @media screen and (max-width: 1000px) {
     .movies{
         margin: 0 30px;

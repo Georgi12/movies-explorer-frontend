@@ -7,37 +7,64 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFoundError from "../NotFoundError/NotFoundError";
-import {myMoviesConstanta} from "../../temporaryConstats";
+import {moviesConstanta, myMoviesConstanta} from "../../temporaryConstats";
 import {MyMovieContext} from "../../context/MyMovieContext";
 import {UserContext} from "../../context/UserContext";
 function App() {
 
-    React.useEffect(() =>
-            setMyMovies(myMoviesConstanta),
-        []
-    )
-    React.useEffect(() =>
-            setUserParams({name: 'Георгий', email: 'asd'}),
-        []
-    )
+    const [showMovies, setShowMovies] = React.useState([])
+    const [searching, setSearching] = React.useState(false)
+    const [movies, setMovies] = React.useState([])
+    const [isShortFilm, setIsShortFilmOn] = React.useState(false)
+
     // Данные фильмов
     const [myMovies, setMyMovies] = React.useState([])
 
     // Данные пользователя
     const [userParams, setUserParams] = React.useState({})
 
-    function sleep (time) {
-        return new Promise((resolve) => setTimeout(resolve, time));
+
+    const onLike = (movie) => {
+        if(myMovies.some(myMovie => myMovie.id === movie.id)) {
+            const newCards =myMovies.filter((myMovie) => myMovie.id !== movie.id)
+            setMyMovies(newCards)
+        } else {
+            setMyMovies([movie, ...myMovies])
+        }
     }
-    const searchMovie = (e, getApiData, setShowMovies, isShortFilmOn, setSearching) => {
+
+    const getMoviesApi = () => {
+        // действия после запроса в базу
+        const draftMovies = moviesConstanta
+        setMovies(draftMovies)
+        setShowMovies(draftMovies.slice(0, 16))
+    }
+
+    const addNewListMovie = () => {
+        const startSlice = showMovies.length
+        const finishSlice = startSlice + 16
+        setShowMovies([...showMovies, ...movies.slice(startSlice, finishSlice)])
+    }
+
+
+    const toggleShortFilmOn = () => setIsShortFilmOn(!isShortFilm)
+
+
+    React.useEffect(() => setMyMovies(myMoviesConstanta), [])
+    React.useEffect(() => setUserParams({name: 'Георгий', email: 'asd'}), [])
+
+
+    const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+
+    const searchMovie = (e) => {
         e.preventDefault()
         setSearching(true)
 
         // имитация ожидания запроса запроса в бд
         sleep(500).then(() => {
-            getApiData()
+            getMoviesApi()
 
-            console.log(isShortFilmOn ? 'поиск короткометражек': 'поиск фильмов')
+            console.log(isShortFilm ? 'поиск короткометражек': 'поиск фильмов')
             setSearching(false)
         })
 
@@ -45,12 +72,6 @@ function App() {
 
     const updateUser = (name, email) => {
         setUserParams({name, email})
-    }
-
-    const addNewListMovie = (showMovies, setShowMovies, movies) => {
-        const startSlice = showMovies.length
-        const finishSlice = startSlice + 16
-        setShowMovies([...showMovies, ...movies.slice(startSlice, finishSlice)])
     }
 
 
@@ -67,15 +88,24 @@ function App() {
                     </Route>
                     <Route path="/movies">
                         <Movies
-                            searchMovie={searchMovie}
-                            addNewListMovie={addNewListMovie}
-
+                            onAddMovies={addNewListMovie}
+                            findMovies={searchMovie}
+                            searching={searching}
+                            showMovies={showMovies}
+                            ShortFilmOn={toggleShortFilmOn}
+                            isShortFilmOn={isShortFilm}
+                            onLike={onLike}
+                            myMovies={myMovies}
                         />
                     </Route>
                     <Route path="/saved-movies">
                         <SavedMovies
-                            searchMovie={searchMovie}
-                            addNewListMovie={addNewListMovie}
+                            findMovies={searchMovie}
+                            isShortFilm={isShortFilm}
+                            ShortFilmOn={toggleShortFilmOn}
+                            searching={searching}
+                            onLike={onLike}
+                            myMovies={myMovies}
                         />
                     </Route>
                     <Route path="/profile">
