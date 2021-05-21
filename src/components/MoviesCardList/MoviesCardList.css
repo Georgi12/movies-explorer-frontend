@@ -1,0 +1,24 @@
+
+
+.cardList {
+    min-width: 100%;
+    display: grid;
+    align-self: center;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px 20px;
+    margin: auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .cardList {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 36px 30px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .cardList {
+        grid-template-columns: 1fr;
+        gap: 36px 30px;
+    }
+}

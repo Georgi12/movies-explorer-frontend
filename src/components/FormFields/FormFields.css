@@ -1,0 +1,40 @@
+
+.field-name {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    color: #a0a0a0;
+    margin-bottom: 5px;
+}
+
+.field {
+    border: 0;
+    border-bottom: 1px solid #e8e8e8;
+    outline: none;
+    margin-bottom: 6px;
+}
+
+.field:hover, .field:focus {
+    border-bottom-color: #3456f3;
+}
+
+.field_error_active,  .field_error_active:hover, .field_error_active:focus {
+    color: #ff3055;
+    border-bottom-color: #ff3055;
+}
+
+.error {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    margin-bottom: 6px;
+    opacity: 1;
+    color: #ff3055;
+    transition: opacity 0.3s;
+}
+
+.error:last-of-type {
+    margin-bottom: 0;
+}

@@ -1,0 +1,126 @@
+.about {
+    margin: 0 5.5vw;
+}
+
+
+.about__paragraphs {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    justify-content: space-between;
+    padding: 0 0;
+    margin: 70px 0 0;
+}
+
+.about__paragraph:first-of-type {
+    margin-right: 146px;
+}
+
+.about__term {
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.04em;
+    margin: 0 0 26px 0;
+}
+
+.about__definition {
+    font-family: Inter, serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 110px 0;
+}
+
+.about__back {
+    display: flex;
+    flex-direction: row;
+    height: 36px;
+    align-items: center;
+    background: linear-gradient(to left, #F2F2F2 80%, #2BE080 20%);
+
+}
+
+.about__back-title {
+    width: 20%;
+    text-align: center;
+    margin: 0 0;
+    align-self: center;
+}
+
+.about__back-sub-title {
+    width: 80%;
+    text-align: center;
+    margin: 0 0;
+    align-self: center;
+}
+
+.about_color_false {
+    background: transparent;
+    margin-bottom: 110px;
+}
+
+@media screen and (max-width: 1000px) {
+    .about {
+        margin: 0 50px;
+    }
+
+    .about__paragraph:first-of-type {
+        margin-right: 30px;
+    }
+
+    .about__definition {
+        font-size: 12px;
+        line-height: 18px;
+        margin-bottom: 90px;
+    }
+
+    .about_color_false {
+        margin-bottom: 90px;
+    }
+
+}
+
+@media screen and (max-width: 560px) {
+    .about {
+        margin: 0 18px;
+    }
+
+    .about__paragraphs {
+        flex-direction: column;
+        margin-top: 60px;
+    }
+
+    .about__term {
+        margin-bottom: 16px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about__definition {
+        font-size: 11px;
+        line-height: 16px;
+        margin-bottom: 60px;
+    }
+
+    .about__back {
+        background: linear-gradient(to left, #F2F2F2 60%, #2BE080 40%);
+    }
+
+    .about__back-title {
+        width: 40%;
+    }
+
+    .about__back-sub-title {
+        width: 60%;
+    }
+
+    .about_color_false {
+        background: transparent;
+        margin-bottom: 70px;
+    }
+}
+

@@ -1,0 +1,41 @@
+
+.navigate-button {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 18px;
+    color: #000000;
+    text-decoration: none;
+    margin-right: 20px;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.navigate-button:hover {
+    opacity: 0.4;
+}
+
+.navigate-button_account {
+    background: #F9F9F9;
+    border-radius: 20px;
+    width: 100px;
+    min-height: 32px;
+    margin: 0 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1000px) {
+    .navigate-button {
+        margin: 28px 0 0;
+    }
+
+    .navigate-button:first-of-type {
+        margin: 0;
+    }
+
+    .navigate-button_account {
+        margin: calc(100vh - 378px) 0 90px 0;
+    }
+}
