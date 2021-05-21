@@ -22,8 +22,8 @@ function AboutMe() {
                         </p>
 
                         <nav className="about-me__social">
-                            <a className="about-me__social-linc" href="https://www.facebook.com/gedrargerum" target="_blank">FaceBook</a>
-                            <a className="about-me__social-linc" href="https://github.com/Georgi12" target="_blank">GitHub</a>
+                            <a className="about-me__social-linc" href="https://www.facebook.com/gedrargerum" target="_blank" rel="noreferrer">FaceBook</a>
+                            <a className="about-me__social-linc" href="https://github.com/Georgi12" target="_blank" rel="noreferrer">GitHub</a>
                         </nav>
                     </div>
                     <img className="about-me__photo" src={authorPhoto} alt="Фотография разработчика проекта"/>
@@ -31,9 +31,9 @@ function AboutMe() {
                 <h4 className="about-me__portfolio-title">Портфолио</h4>
 
                 <nav className="about-me__portfolio">
-                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/how-to-learn" target='_blank'>Статичный сайт</a>
-                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/russian-travel" target='_blank'>Адаптивный сайт</a>
-                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/react-mesto-api-full" target='_blank'>Одностраничное приложение</a>
+                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/how-to-learn" target='_blank' rel="noreferrer">Статичный сайт</a>
+                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/russian-travel" target='_blank' rel="noreferrer">Адаптивный сайт</a>
+                    <a className="about-me__portfolio-linc" href="https://github.com/Georgi12/react-mesto-api-full" target='_blank' rel="noreferrer">Одностраничное приложение</a>
                 </nav>
             </section>
         <Footer/>

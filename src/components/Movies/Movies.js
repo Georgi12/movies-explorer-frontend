@@ -5,7 +5,10 @@ import NavigateButtons from "../NavigateButtons/NavigateButtons";
 import React from "react";
 import Footer from "../Footer/Footer";
 
-function Movies ({onAddMovies, findMovies, searching, showMovies, ShortFilmOn, isShortFilmOn, onLike, myMovies}) {
+function Movies ({onAddMovies, findMovies, searching, showMovies, ShortFilmOn,
+                     isShortFilmOn, onLike, myMovies, movies, isFindNothing}) {
+
+    const showButton = movies.length !== showMovies.length
 
     return(
         <>
@@ -18,13 +21,16 @@ function Movies ({onAddMovies, findMovies, searching, showMovies, ShortFilmOn, i
                     ShortFilmOn={ShortFilmOn}
                     isShortFilmOn={isShortFilmOn}
                 />
-                <MoviesCardList
-                    movies={showMovies}
-                    myMovies={myMovies}
-                    searching={searching}
-                    onLike={onLike}
-                />
-                <button className="movies__button" onClick={onAddMovies}>Еще</button>
+                {!isFindNothing ?
+                    <MoviesCardList
+                        movies={showMovies}
+                        myMovies={myMovies}
+                        searching={searching}
+                        onLike={onLike}
+                    /> :
+                    <p>Ничего не найдено</p>
+                }
+                { showButton && <button className="movies__button" onClick={onAddMovies}>Еще</button>}
             </div>
             <Footer/>
         </>

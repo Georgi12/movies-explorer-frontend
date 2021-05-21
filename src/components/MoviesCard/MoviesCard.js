@@ -1,7 +1,7 @@
 import React from "react";
 
 function MoviesCard({movie, myMovies, deleteModeOn, onLike}) {
-    const isLiked = myMovies.some(myMovie => myMovie.id === movie.id)
+    const isLiked = myMovies.some(myMovie => myMovie.movieId === movie.movieId)
 
     const likeButtonAction = () => {
         onLike(movie)
@@ -21,7 +21,9 @@ function MoviesCard({movie, myMovies, deleteModeOn, onLike}) {
 
     return(
         <article className="movie-card">
-            <img className="movie-card__image" src={`${movie.image}`} alt={movie.nameRU}/>
+            <a href={movie.trailer} target="_blank" rel="noreferrer">
+                <img className="movie-card__image" src={movie.image} alt={movie.nameRU}/>
+            </a>
             <div className="movie-card__information">
                 <p className="movie-card__title">{movie.nameRU}</p>
                 <button className={likeButtonClass} type="button" onClick={likeButtonAction}/>

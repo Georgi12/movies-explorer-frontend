@@ -1,7 +1,7 @@
 import Popup from '../Popup/Popup'
 import FormFields from "../FormFields/FormFields";
 
-function EditProfilePopup({onSubmit, isOpen, values, handleChange, errors, isValid, resetFrom, togglePopup}) {
+function EditProfilePopup({onSubmit, isOpen, values, handleChange, errors, isValid }) {
 
 
     return(
@@ -12,7 +12,6 @@ function EditProfilePopup({onSubmit, isOpen, values, handleChange, errors, isVal
                 onSubmit={onSubmit}
                 isValid={isValid}
                 isOpen={isOpen}
-                togglePopup={togglePopup}
             >
                 <FormFields
                     email={true}

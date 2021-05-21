@@ -23,5 +23,9 @@ export function useFormWithValidation() {
         [setValues, setErrors, setIsValid]
     );
 
-    return { values, handleChange, resetFrom, errors, isValid };
+    const setDefaultValues = (newValues) => {
+        setValues(newValues)
+    }
+
+    return { values, handleChange, resetFrom, errors, isValid, setDefaultValues };
 }

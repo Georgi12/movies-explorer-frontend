@@ -3,27 +3,18 @@ import {Link} from "react-router-dom";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import NavigateButtons from "../NavigateButtons/NavigateButtons";
 import {UserContext} from "../../context/UserContext";
-import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
 import {useFormWithValidation} from "../../utils/formConfirm";
 
 
-function Profile({updateUser}) {
+function Profile({updateUser, signOutOn}) {
 
-    const [openIsPopup, setOpenPopup] = React.useState(false)
-    const {values, handleChange, resetFrom, errors, isValid} = useFormWithValidation();
+    const {values, handleChange, setDefaultValues} = useFormWithValidation();
 
     const currentUser = React.useContext(UserContext)
 
-    const updateUserModification = (e) => {
-        e.preventDefault()
-        updateUser(values.name, values.email )
-        togglePopup()
-    }
-
-    const togglePopup = () => {
-        setOpenPopup(!openIsPopup)
-    }
-
+    React.useEffect(() => {
+        setDefaultValues({name: currentUser.name, email: currentUser.email})
+    }, [currentUser])
 
     return(
         <>
@@ -32,32 +23,26 @@ function Profile({updateUser}) {
             </NavigationMenu>
             <div className='profile'>
                 <h1 className='profile__name'>Привет, {currentUser.name}!</h1>
-                <div className="profile__information">
-                    <div className="profile__section">
-                        <p className="profile__element">Имя</p>
-                        <p className="profile__element">{currentUser.name}</p>
-                    </div>
 
-                    <hr className="profile__line"/>
-                    <div className="profile__section">
-                        <p className="profile__element">E-mail</p>
-                        <p className="profile__element">{currentUser.email}</p>
+                <form className='profile__form' name='formName' noValidate onSubmit={(e) => updateUser(e, values)}>
+                    <div className='profile__field-cell'>
+                        <label htmlFor="name">Имя</label>
+                        <input className='profile__field' type="text" id="name" name="name" value={values.name || ''}
+                               onChange={handleChange} minLength="2" maxLength="30" required
+                        />
                     </div>
-                </div>
-                <button className="profile__text profile__edit-btn" onClick={togglePopup}>Редактировать</button>
-                <Link className="profile__text profile__exit" to='/'>Выйти из аккаунта</Link>
+                    <div className='profile__field-cell'>
+                        <label htmlFor="email">Email</label>
+                        <input  className='profile__field' type="email" id="email" name="email" value={values.email  || ''}
+                                onChange={handleChange} minLength="3" maxLength="50" required
+                        />
+                    </div>
+                    <button className="profile__text profile__edit-btn" type='submit' >Редактировать</button>
+                </form>
+
+                <Link className="profile__text profile__exit" onClick={signOutOn} to='/'>Выйти из аккаунта</Link>
+
             </div>
-
-            <EditProfilePopup
-                onSubmit={updateUserModification}
-                isOpen={openIsPopup}
-                values={values}
-                handleChange={handleChange}
-                errors={errors}
-                isValid={isValid}
-                resetFrom={resetFrom}
-                togglePopup={togglePopup}
-            />
         </>
     )
 }

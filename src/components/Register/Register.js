@@ -2,18 +2,11 @@ import ComingScreen from "../СomingScreen/ComingScreen";
 import FormFields from "../FormFields/FormFields";
 import React from "react";
 import {useFormWithValidation} from "../../utils/formConfirm";
-import {useHistory} from "react-router-dom";
 
-function Register() {
-    const {values, handleChange, resetFrom, errors, isValid} = useFormWithValidation();
-    const history = useHistory()
+function Register({onSubmit}) {
+    const {values, handleChange, errors, isValid} = useFormWithValidation();
     const linkTo = 'signin'
 
-    const onSubmit = (e) => {
-        e.preventDefault()
-        history.push('/signin')
-
-    }
     return(
         <div className="register">
             <ComingScreen
@@ -25,6 +18,7 @@ function Register() {
                 onSubmit={onSubmit}
                 isValid={isValid}
                 linkTo={linkTo}
+                values={values}
 
             >
                 <FormFields

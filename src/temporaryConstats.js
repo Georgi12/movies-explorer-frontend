@@ -1,4 +1,7 @@
 
+
+export const lowMovieDuration = 40
+
 export const moviesConstanta = [
     {
         image: "https://i.ytimg.com/vi/3HawpxqPWww/maxresdefault.jpg",

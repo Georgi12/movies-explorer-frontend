@@ -6,12 +6,22 @@
     border-radius: 10px;
     overflow: hidden;
     box-sizing: border-box;
+    width: 100%;
+    height: 218px;
 }
 
 .movie-card__image {
     width: 100%;
+    /* 67px - выстота блока без картинки*/
+    height: calc(100% - 67px);
     object-fit: cover;
-    display: block;
+    background-position: center center;
+    transition: opacity 0.3s ease-in-out
+}
+
+.movie-card__image:hover {
+    opacity: 0.4;
+
 }
 
 .movie-card__information {
@@ -28,6 +38,9 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
     margin: 0;
 }
 
@@ -39,6 +52,7 @@
     height: 16px;
     border: 2px solid #fff;
     outline: none;
+    margin-left: 10px;
     transition: opacity 0.3s ease-in-out;
 }
 
@@ -65,4 +79,17 @@
     font-size: 11px;
     line-height: 13px;
     color: #A0A0A0;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .movie-card {
+        height: 257px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .movie-card {
+        height: 235px;
+    }
 }

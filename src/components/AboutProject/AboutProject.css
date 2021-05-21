@@ -17,7 +17,7 @@
 }
 
 .about__term {
-    font-family: Inter, serif;
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 20px;
@@ -27,7 +27,7 @@
 }
 
 .about__definition {
-    font-family: Inter, serif;
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 14px;

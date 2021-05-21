@@ -2,19 +2,30 @@ import React from 'react';
 import planet from "../../images/planet.svg";
 import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import { Link } from "react-router-dom";
+import NavigateButtons from "../NavigateButtons/NavigateButtons";
 
-function Promo() {
+function Promo({loggedIn}) {
+
+    const [firstMenu, setFirstMenu] = React.useState(true)
+
     const scrollTo = () => {
         document.getElementsByClassName("about")[0].scrollIntoView({behavior: "smooth"})
     }
 
+    React.useEffect(() => {
+        setFirstMenu(!loggedIn)
+    }, [loggedIn])
+
     return(
         <header className='promo'>
-            <NavigationMenu firstMenu={true}>
-                <>
-                    <Link to="signup" className="promo__link">Регистрация</Link>
-                    <Link to="signin" className="promo__link promo__link_registration">Войти</Link>
-                </>
+            <NavigationMenu firstMenu={firstMenu}>
+                {!loggedIn ?
+                    <>
+                        <Link to="signup" className="promo__link">Регистрация</Link>
+                        <Link to="signin" className="promo__link promo__link_registration">Войти</Link>
+                    </> :
+                    <NavigateButtons/>
+                }
             </NavigationMenu>
             <div className="promo__content">
                 <img

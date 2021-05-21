@@ -5,16 +5,8 @@ import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import NavigateButtons from "../NavigateButtons/NavigateButtons";
 import React from "react";
 import Footer from "../Footer/Footer";
-import {useHistory} from "react-router-dom";
 
-function SavedMovies({findMovies, ShortFilmOn, isShortFilm, searching, myMovies, onLike}) {
-
-    const history = useHistory()
-
-    const updateSubmit = (e) => {
-        history.push('/movies')
-        findMovies(e)
-    }
+function SavedMovies({findMovies, ShortFilmOn, isShortFilmOn, searching, myMovies, onLike, showMyMovies}) {
 
     return(
         <>
@@ -23,12 +15,12 @@ function SavedMovies({findMovies, ShortFilmOn, isShortFilm, searching, myMovies,
             </NavigationMenu>
             <div className="movies">
                 <SearchForm
-                    onSubmit={updateSubmit}
+                    onSubmit={findMovies}
                     ShortFilmOn={ShortFilmOn}
-                    isShortFilm={isShortFilm}
+                    isShortFilmOn={isShortFilmOn}
                 />
                 <MoviesCardList
-                    movies={myMovies}
+                    movies={showMyMovies}
                     myMovies={myMovies}
                     searching={searching}
                     deleteModeOn={true}

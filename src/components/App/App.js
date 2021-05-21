@@ -1,5 +1,5 @@
-import React  from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
+import {Route, Switch} from 'react-router-dom';
 import Main from "../Main/Main";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
@@ -7,42 +7,89 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import NotFoundError from "../NotFoundError/NotFoundError";
-import {moviesConstanta, myMoviesConstanta} from "../../temporaryConstats";
-import {MyMovieContext} from "../../context/MyMovieContext";
+import {lowMovieDuration} from "../../temporaryConstats";
 import {UserContext} from "../../context/UserContext";
+import {apiBeatFilm} from "../../utils/MoviesApi"
+import defaultImage from "../../images/noImage.jpg"
+import useBreakpoints from "../../utils/MediaQueryRecognizer";
+import {apiMain} from "../../utils/MainApi";
+import {useHistory} from "react-router-dom";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 function App() {
 
     const [showMovies, setShowMovies] = React.useState([])
+    const [showMyMovies, setShowMyMovies] = React.useState([])
     const [searching, setSearching] = React.useState(false)
     const [movies, setMovies] = React.useState([])
     const [isShortFilm, setIsShortFilmOn] = React.useState(false)
-
+    const [isFindNothing, setIsFindNothing] = React.useState(false)
+    const [loggedIn, setLoggedIn] = React.useState(false)
     // Данные фильмов
     const [myMovies, setMyMovies] = React.useState([])
 
     // Данные пользователя
     const [userParams, setUserParams] = React.useState({})
 
+    const [stepAndSlice, setStepAndSlice] =  React.useState({})
 
-    const onLike = (movie) => {
-        if(myMovies.some(myMovie => myMovie.id === movie.id)) {
-            const newCards =myMovies.filter((myMovie) => myMovie.id !== movie.id)
-            setMyMovies(newCards)
-        } else {
-            setMyMovies([movie, ...myMovies])
+    const {tabletResolution, mobileResolution} = useBreakpoints()
+
+    const history = useHistory()
+
+    const changeStep = () => {
+        if(!tabletResolution && !mobileResolution) {
+            setStepAndSlice({'step': 4, 'slice': 12})
+        }
+        if(tabletResolution) {
+            setStepAndSlice({'step': 2, 'slice': 8})
+        }
+        if(mobileResolution) {
+            setStepAndSlice({'step': 1, 'slice': 5})
         }
     }
 
-    const getMoviesApi = () => {
-        // действия после запроса в базу
-        const draftMovies = moviesConstanta
-        setMovies(draftMovies)
-        setShowMovies(draftMovies.slice(0, 16))
-    }
+    React.useEffect(() => {
+        changeStep()
+    }, [mobileResolution, tabletResolution])
+
+
+    React.useEffect( () => {
+        handleTokenCheck()
+    },[loggedIn])
+
+    React.useEffect(() => {
+        if (!loggedIn) return
+        Promise.all(
+            [apiMain.getProfileInfo(), apiMain.getMyMovies()]
+        ).then(([userData, initialMovies]) => {
+            setUserParams(userData.data)
+            setMyMovies(initialMovies.data);
+            }
+        ).catch((err) => console.log(err))
+    }, [loggedIn])
+
+
+    React.useEffect(() => {
+        if(localStorage.getItem('movies')) {
+            const storageMovies = JSON.parse(localStorage.getItem("movies"))
+            setMovies(storageMovies)
+            setShowMovies(storageMovies.slice(0, stepAndSlice['slice']))
+        }
+    }, [stepAndSlice])
+
+
+    React.useEffect(() => {
+        const newShowMyMovies = showMyMovies.filter((movie) => {
+            return myMovies.some((myMovie) => myMovie.movieId === movie.movieId)
+        })
+        setShowMyMovies(newShowMyMovies)
+    }, [myMovies])
+
 
     const addNewListMovie = () => {
         const startSlice = showMovies.length
-        const finishSlice = startSlice + 16
+        const finishSlice = startSlice + stepAndSlice['step']
         setShowMovies([...showMovies, ...movies.slice(startSlice, finishSlice)])
     }
 
@@ -50,69 +97,195 @@ function App() {
     const toggleShortFilmOn = () => setIsShortFilmOn(!isShortFilm)
 
 
-    React.useEffect(() => setMyMovies(myMoviesConstanta), [])
-    React.useEffect(() => setUserParams({name: 'Георгий', email: 'asd'}), [])
+    const onLikeToggle = (movie) => {
+        let movieId = ''
+        if(myMovies.some(myMovie => {
+            if(myMovie.movieId === movie.movieId) {
+                movieId = myMovie._id
+                return true
+            }
+            return false
+        })) {
+            if(movieId === '') return
+            apiMain.onDisLike(movieId)
+                .then(() => {
+                    const newCards = myMovies.filter((myMovie) => myMovie.movieId !== movie.movieId)
+                    setMyMovies(newCards)
+                    // reShowMovies()
+                })
+                .catch(err => console.log(err))
 
+        } else {
+            apiMain.onLike(movie)
+                .then(newMyMovie => {
+                    setMyMovies([newMyMovie.data, ...myMovies])
+                })
+                .catch(err => console.log(err))
 
-    const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));
+        }
+    }
 
-    const searchMovie = (e) => {
+    const rewriteMovieParams = (movie) => {
+        const beatUrl = 'https://api.nomoreparties.co'
+        const defaultImgUrl = `http://localhost:3000${defaultImage}`
+        movie.thumbnail = movie.image ? `${beatUrl}${movie.image.formats.thumbnail.url}` : defaultImgUrl
+        movie.image = movie.image ? `${beatUrl}${movie.image.url}` : defaultImgUrl
+        movie.movieId = movie.id
+        movie.trailer = movie.trailerLink
+        delete movie.id
+        delete movie.trailerLink
+        delete movie.created_at
+        delete movie.updated_at
+    }
+
+    const movieFinderLogic = (movies, finderValue, needToRename=true) => {
+        return movies.filter(movie => {
+            let returnDecide = true
+            if (!movie.nameRU.toLowerCase().includes(finderValue.toLowerCase())) returnDecide = false
+            if (isShortFilm && movie.duration > lowMovieDuration) returnDecide = false
+            if (returnDecide) {
+                if(needToRename) rewriteMovieParams(movie)
+                return true
+            }
+            return false
+
+        })
+    }
+
+    const searchMovie = (e, finderValue) => {
         e.preventDefault()
         setSearching(true)
+        apiBeatFilm.getMovies()
+            .then(beatMovies => {
+                const redactBeatMovies = movieFinderLogic(beatMovies, finderValue)
+                setMovies(redactBeatMovies)
+                localStorage.setItem('movies', JSON.stringify(redactBeatMovies))
+                setShowMovies(redactBeatMovies.slice(0, stepAndSlice['slice']))
+                if(redactBeatMovies.length === 0) {
+                    setIsFindNothing(true)
+                } else {
+                    setIsFindNothing(false)
+                }
+            })
+            .catch(err => console.log(err))
+            .finally(() => setSearching(false))
+    }
 
-        // имитация ожидания запроса запроса в бд
-        sleep(500).then(() => {
-            getMoviesApi()
 
-            console.log(isShortFilm ? 'поиск короткометражек': 'поиск фильмов')
-            setSearching(false)
-        })
+
+    const searchMyMovie = (e, finderValue) => {
+        e.preventDefault()
+        const myFilterMovies = movieFinderLogic(myMovies, finderValue, false)
+        setShowMyMovies(myFilterMovies)
+    }
+
+    const signUp = (e, data) => {
+        e.preventDefault()
+        apiMain.signUp(data)
+            .then((res) => {
+                setUserParams(res)
+                history.push('/signin')
+            })
+            .catch(err => console.log(err))
 
     }
 
-    const updateUser = (name, email) => {
-        setUserParams({name, email})
+
+    const handleTokenCheck = () => {
+        if (localStorage.getItem('jwt')){
+            const jwt = localStorage.getItem('jwt')
+            apiMain.getProfileInfo(jwt)
+                .then((res) => {
+                    if(res) {
+                        setLoggedIn(true)
+                        // history.push('/movies')
+                    }
+                })
+                .catch(err => console.log(err));
+        }
     }
 
+    const signIn = (e, data) => {
+        e.preventDefault()
+        apiMain.signIn(data)
+            .then((res) => {
+                if(res.token) {
+                    localStorage.setItem('jwt', res.token)
+                    setUserParams(res)
+                    setLoggedIn(true)
+                    history.push('/movies')
+                }
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const signOutOn = () => {
+        setLoggedIn(false)
+        localStorage.removeItem('movies')
+        localStorage.removeItem('jwt')
+        history.push('/')
+    }
+
+
+    const updateUser = (e, data) => {
+        e.preventDefault()
+        apiMain.setProfileInfo(data)
+            .then(newCurrentUser => setUserParams(newCurrentUser.data))
+            .catch((err) => console.log(err))
+    }
 
     return (
-        <MyMovieContext.Provider value={myMovies}>
         <UserContext.Provider value={userParams}>
             <div className="App">
                 <Switch>
                     <Route path="/signup">
-                        <Register />
+                        <Register onSubmit={signUp} />
                     </Route>
                     <Route path="/signin">
-                        <Login />
+                        <Login onSubmit={signIn}/>
                     </Route>
-                    <Route path="/movies">
-                        <Movies
-                            onAddMovies={addNewListMovie}
-                            findMovies={searchMovie}
-                            searching={searching}
-                            showMovies={showMovies}
-                            ShortFilmOn={toggleShortFilmOn}
-                            isShortFilmOn={isShortFilm}
-                            onLike={onLike}
-                            myMovies={myMovies}
-                        />
-                    </Route>
-                    <Route path="/saved-movies">
-                        <SavedMovies
-                            findMovies={searchMovie}
-                            isShortFilm={isShortFilm}
-                            ShortFilmOn={toggleShortFilmOn}
-                            searching={searching}
-                            onLike={onLike}
-                            myMovies={myMovies}
-                        />
-                    </Route>
-                    <Route path="/profile">
-                        <Profile updateUser={updateUser}/>
-                    </Route>
+                    <ProtectedRoute
+                        path="/movies"
+                        Component={Movies}
+                        loggedIn={loggedIn}
+                        onAddMovies={addNewListMovie}
+                        findMovies={searchMovie}
+                        searching={searching}
+                        showMovies={showMovies}
+                        ShortFilmOn={toggleShortFilmOn}
+                        isShortFilmOn={isShortFilm}
+                        onLike={onLikeToggle}
+                        myMovies={myMovies}
+                        movies={movies}
+                        isFindNothing={isFindNothing}
+
+                    />
+
+                    <ProtectedRoute
+                        path="/saved-movies"
+                        Component={SavedMovies}
+                        loggedIn={loggedIn}
+                        findMovies={searchMyMovie}
+                        isShortFilmOn={isShortFilm}
+                        ShortFilmOn={toggleShortFilmOn}
+                        showMyMovies={showMyMovies}
+                        searching={searching}
+                        onLike={onLikeToggle}
+                        myMovies={myMovies}
+                    />
+
+                    <ProtectedRoute
+                        path="/profile"
+                        Component={Profile}
+                        loggedIn={loggedIn}
+                        updateUser={updateUser}
+                        signOutOn={signOutOn}
+                    />
+
                     <Route exact path="/">
-                        <Main/>
+                        <Main
+                            loggedIn={loggedIn}
+                        />
                     </Route>
                     <Route path="/*">
                         <NotFoundError/>
@@ -120,7 +293,6 @@ function App() {
                  </Switch>
             </div>
         </UserContext.Provider>
-        </MyMovieContext.Provider>
   );
 }
 

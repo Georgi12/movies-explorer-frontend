@@ -2,7 +2,8 @@ import NavigationMenu from "../NavigationMenu/NavigationMenu";
 import Form from "../Form/Form";
 import {Link} from "react-router-dom";
 
-function ComingScreen({buttonTitle, linkTitle, linkDescription, title, formName, children, onSubmit, isValid, linkTo}) {
+function ComingScreen({buttonTitle, linkTitle, linkDescription, title, formName, children,
+                          onSubmit, isValid, linkTo, values}) {
     return(
         <>
             <div className="coming-screen">
@@ -13,6 +14,7 @@ function ComingScreen({buttonTitle, linkTitle, linkDescription, title, formName,
                     children={children}
                     onSubmit={onSubmit}
                     isValid={isValid}
+                    values={values}
                 />
                 <div className="coming-screen__basement">
                     <p className="coming-screen__link-description">{linkDescription}</p>
