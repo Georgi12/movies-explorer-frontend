@@ -33,11 +33,26 @@
     font-size: 11px;
 }
 
+.profile__errors {
+    margin: 6px 0 0;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 12px;
+    opacity: 1;
+    color: #ff3055;
+}
+
+.profile__errors:last-of-type {
+    margin-bottom: 220px;
+}
+
+
 .profile__field-cell:last-of-type {
     border-top: 1px solid #e8e8e8;
     padding-top: 16px;
     margin-top: 16px;
-    margin-bottom: 220px;
+
 
 }
 
@@ -60,6 +75,11 @@
     border: 0;
     outline: none;
     transition: opacity 0.3s;
+}
+
+.profile__edit-btn_disabled {
+    opacity: 0.2;
+    pointer-events: none;
 }
 
 .profile__edit-btn:hover {

@@ -1,5 +1,5 @@
-function Form({buttonTitle, formName, onSubmit, children, isValid, popupStyle, values}) {
-    const buttonClass = `form__button ${popupStyle && 'form__button_popup'} ${!isValid && "form__button_disabled"}`
+function Form({buttonTitle, formName, onSubmit, children, isValid, values}) {
+    const buttonClass = `form__button ${!isValid && "form__button_disabled"}`
 
     return(
         <form
