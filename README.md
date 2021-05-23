@@ -5,5 +5,5 @@
 2. css3, html5, gridlines, flex
 
 ### Ссылка на проект:
-api.findmovie.students.nomoredomains.icu  
-findmovie.students.nomoredomains.icu  
+api.mymoviesfinder.students.nomoredomains.icu  
+mymoviesfinder.students.nomoredomains.icu
