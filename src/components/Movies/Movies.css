@@ -23,6 +23,17 @@
     transition: opacity 0.3s;
 }
 
+.movies__empty-frame {
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0;
+    text-align: center;
+    color: #a0a0a0;
+}
+
 .movies__button:hover {
     opacity: 0.4;
 }

@@ -15,6 +15,7 @@ import useBreakpoints from "../../utils/MediaQueryRecognizer";
 import {apiMain} from "../../utils/MainApi";
 import {useHistory} from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import Popup from "../Popup/Popup";
 
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
     const [isShortFilm, setIsShortFilmOn] = React.useState(false)
     const [isFindNothing, setIsFindNothing] = React.useState(false)
     const [loggedIn, setLoggedIn] = React.useState(false)
+    const [isPopupOpen, setIsPopupOpen] = React.useState(false)
+    const [popupMessage, setPopupMessage] = React.useState('')
     // Данные фильмов
     const [myMovies, setMyMovies] = React.useState([])
 
@@ -96,6 +99,16 @@ function App() {
 
     const toggleShortFilmOn = () => setIsShortFilmOn(!isShortFilm)
 
+    const popupToggle = () => {
+        setIsPopupOpen(!isPopupOpen)
+    }
+
+    const openPopupWithError = (err, message) => {
+        setPopupMessage(message)
+        console.log(err)
+        popupToggle()
+    }
+
 
     const onLikeToggle = (movie) => {
         let movieId = ''
@@ -111,16 +124,15 @@ function App() {
                 .then(() => {
                     const newCards = myMovies.filter((myMovie) => myMovie.movieId !== movie.movieId)
                     setMyMovies(newCards)
-                    // reShowMovies()
                 })
-                .catch(err => console.log(err))
+                .catch(err => openPopupWithError(err, 'Произошла ошибка'))
 
         } else {
             apiMain.onLike(movie)
                 .then(newMyMovie => {
                     setMyMovies([newMyMovie.data, ...myMovies])
                 })
-                .catch(err => console.log(err))
+                .catch(err => openPopupWithError(err, 'Произошла ошибка'))
 
         }
     }
@@ -161,13 +173,14 @@ function App() {
                 setMovies(redactBeatMovies)
                 localStorage.setItem('movies', JSON.stringify(redactBeatMovies))
                 setShowMovies(redactBeatMovies.slice(0, stepAndSlice['slice']))
-                if(redactBeatMovies.length === 0) {
-                    setIsFindNothing(true)
-                } else {
-                    setIsFindNothing(false)
-                }
+                redactBeatMovies.length === 0 ? setIsFindNothing(true) : setIsFindNothing(false)
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                const message = 'Во время запроса произошла ошибка. Возможно, проблема с соединением или ' +
+                    'сервер недоступен. Подождите немного и попробуйте ещё раз.'
+
+                openPopupWithError(err, message)
+            })
             .finally(() => setSearching(false))
     }
 
@@ -186,7 +199,7 @@ function App() {
                 setUserParams(res)
                 history.push('/signin')
             })
-            .catch(err => console.log(err))
+            .catch(err => openPopupWithError(err, 'Произошла ошибка'))
 
     }
 
@@ -198,10 +211,10 @@ function App() {
                 .then((res) => {
                     if(res) {
                         setLoggedIn(true)
-                        // history.push('/movies')
+                        history.push('/movies')
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err => openPopupWithError(err, 'Произошла ошибка'));
         }
     }
 
@@ -216,7 +229,7 @@ function App() {
                     history.push('/movies')
                 }
             })
-            .catch((err) => console.log(err))
+            .catch((err) => openPopupWithError(err, 'Произошла ошибка'))
     }
 
     const signOutOn = () => {
@@ -231,7 +244,7 @@ function App() {
         e.preventDefault()
         apiMain.setProfileInfo(data)
             .then(newCurrentUser => setUserParams(newCurrentUser.data))
-            .catch((err) => console.log(err))
+            .catch((err) => openPopupWithError(err, 'Произошла ошибка'))
     }
 
     return (
@@ -291,8 +304,15 @@ function App() {
                         <NotFoundError/>
                     </Route>
                  </Switch>
+
+                <Popup
+                    message={popupMessage}
+                    isPopupOpen={isPopupOpen}
+                    popupToggle={popupToggle}
+                />
             </div>
         </UserContext.Provider>
+
   );
 }
 

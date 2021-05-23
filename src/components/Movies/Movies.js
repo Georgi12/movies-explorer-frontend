@@ -28,7 +28,7 @@ function Movies ({onAddMovies, findMovies, searching, showMovies, ShortFilmOn,
                         searching={searching}
                         onLike={onLike}
                     /> :
-                    <p>Ничего не найдено</p>
+                    <p className='movies__empty-frame' >Ничего не найдено</p>
                 }
                 { showButton && <button className="movies__button" onClick={onAddMovies}>Еще</button>}
             </div>
